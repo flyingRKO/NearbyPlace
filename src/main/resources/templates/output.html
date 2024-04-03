@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nearby Place Recommendation System</title>
+    <!-- CSS 파일 연결 -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>가까운 장소 추천 결과</h2>
+    <h6>가까운 거리 순서대로 나타납니다</h6>
+
+    <table>
+        <thead>
+        <tr>
+            <th>장소 이름</th>
+            <th>장소 주소</th>
+            <th>거리</th>
+            <th>길안내 링크</th>
+            <th>로드뷰 링크</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="place : ${outputFormList}">
+            <td th:text="${place.storeName}">장소 이름</td>
+            <td th:text="${place.storeAddress}">장소 주소</td>
+            <td th:text="${place.distance}">거리</td>
+            <td><a th:href="${place.directionUrl}" th:text="${place.directionUrl}">길안내 링크</a></td>
+            <td><a th:href="${place.roadViewUrl}" th:text="${place.roadViewUrl}">로드뷰 링크</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

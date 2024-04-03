@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nearby Place Recommendation System</title>
+    <!-- Bootstrap CSS 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">가까운 곳!</h2>
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">주소를 입력하시면 주소 기준으로 가까운 장소의 위치 최대 5곳을 추천드립니다!</p>
+            <form th:action="@{/search}" method="post" class="my-4">
+                <div class="form-group">
+                    <label for="address_kakao">주소</label>
+                    <input type="text" class="form-control" id="address_kakao" name="address"
+                           placeholder="주소(지번 또는 도로명)를 입력하세요. ex) 서울특별시 성북구 종암로 10길" readonly>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Kakao 우편번호 서비스 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    window.onload = function() {
+        document.getElementById("address_kakao").addEventListener("click", function() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    document.getElementById("address_kakao").value = data.address;
+                }
+            }).open();
+        });
+    }
+</script>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
