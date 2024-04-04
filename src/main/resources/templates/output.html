@@ -23,10 +23,10 @@
         </thead>
         <tbody>
         <tr th:each="place : ${outputFormList}">
-            <td th:text="${place.storeName}">장소 이름</td>
-            <td th:text="${place.storeAddress}">장소 주소</td>
+            <td class="place-name" th:text="${place.placeName()}">장소 이름</td>
+            <td class="place-address" th:text="${place.placeAddress()}">장소 주소</td>
             <td th:text="${place.distance}">거리</td>
-            <td><a th:href="${place.directionUrl}" th:text="${place.directionUrl}">길안내 링크</a></td>
+            <td><a th:href="${place.placeUrl()}" th:text="${place.placeUrl()}">길안내 링크</a></td>
             <td><a th:href="${place.roadViewUrl}" th:text="${place.roadViewUrl}">로드뷰 링크</a></td>
         </tr>
         </tbody>

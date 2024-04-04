@@ -11,13 +11,34 @@
     <h2 class="mb-4 text-center">가까운 곳!</h2>
     <div class="card">
         <div class="card-body">
-            <p class="card-text">주소를 입력하시면 주소 기준으로 가까운 장소의 위치 최대 5곳을 추천드립니다!</p>
+            <p class="card-text">먼저 카테고리를 선택해주시고 주소를 입력하시면 주소 기준으로 가까운 장소의 위치 최대 5곳을 추천드립니다!</p>
             <form th:action="@{/search}" method="post" class="my-4">
+                <div class="form-group">
+                    <label for="category">카테고리 선택</label>
+                    <select class="form-control" id="category" name="category">
+                        <option value="MT1">대형마트</option>
+                        <option value="CS2">편의점</option>
+                        <option value="PK6">주차장</option>
+                        <option value="OL7">주유소, 충전소</option>
+                        <option value="SW8">지하철역</option>
+                        <option value="BK9">은행</option>
+                        <option value="CT1">문화시설</option>
+                        <option value="AG2">중개업소</option>
+                        <option value="PO3">공공기관</option>
+                        <option value="AT4">관광명소</option>
+                        <option value="AD5">숙박</option>
+                        <option value="FD6">음식점</option>
+                        <option value="CE7">카페</option>
+                        <option value="HP8">병원</option>
+                        <option value="PM9">약국</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="address_kakao">주소</label>
                     <input type="text" class="form-control" id="address_kakao" name="address"
                            placeholder="주소(지번 또는 도로명)를 입력하세요. ex) 서울특별시 성북구 종암로 10길" readonly>
                 </div>
+
                 <button type="submit" class="btn btn-primary btn-block">Search</button>
             </form>
         </div>
