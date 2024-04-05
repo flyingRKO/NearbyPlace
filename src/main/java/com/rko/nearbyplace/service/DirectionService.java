@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DirectionService {
     private final KakaoAddressSearchService kakaoAddressSearchService;
+    private final ShortUrlService shortUrlService;
 
     private static final String ROAD_VIEW_BASE_URL = "https://map.kakao.com/link/roadview/";
     private static final String DIRECTION_BASE_URL = "https://map.kakao.com/link/map/";
@@ -41,19 +42,21 @@ public class DirectionService {
     }
 
     public OutputDto toOutputDto(DirectionDto dto){
-        String params = String.join(",", dto.targetPlaceName(),
-                String.valueOf(dto.targetLatitude()),
-                String.valueOf(dto.targetLongitude()));
+       String placeUrl = UriComponentsBuilder.fromHttpUrl(DIRECTION_BASE_URL)
+               .queryParam("placeName", dto.targetPlaceName())
+               .queryParam("latitude", dto.targetLatitude())
+               .queryParam("longitude", dto.targetLongitude())
+               .toUriString();
+       String roadViewUrl = ROAD_VIEW_BASE_URL + dto.targetLatitude() + "," + dto.targetLongitude();
 
-        String result = UriComponentsBuilder.fromHttpUrl(DIRECTION_BASE_URL + params).toUriString();
-
-        log.info("direction params: {}, url: {}", params, result);
+       String shortPlaceUrl = shortUrlService.shortenUrl(placeUrl);
+       String shortRoadViewUrl = shortUrlService.shortenUrl(roadViewUrl);
 
         return OutputDto.builder()
                 .placeName(dto.targetPlaceName())
                 .placeAddress(dto.targetAddress())
-                .placeUrl(result)
-                .roadViewUrl(ROAD_VIEW_BASE_URL + dto.targetLatitude() + "," + dto.targetLongitude())
+                .placeUrl(shortPlaceUrl)
+                .roadViewUrl(shortRoadViewUrl)
                 .distance(String.format(dto.distance() + "m"))
                 .build();
     }
