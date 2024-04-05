@@ -42,14 +42,13 @@ public class DirectionService {
     }
 
     public OutputDto toOutputDto(DirectionDto dto){
-       String placeUrl = UriComponentsBuilder.fromHttpUrl(DIRECTION_BASE_URL)
-               .queryParam("placeName", dto.targetPlaceName())
-               .queryParam("latitude", dto.targetLatitude())
-               .queryParam("longitude", dto.targetLongitude())
-               .toUriString();
+        String params = String.join(",", dto.targetPlaceName(),
+                String.valueOf(dto.targetLatitude()),
+                String.valueOf(dto.targetLongitude()));
+        String result = UriComponentsBuilder.fromHttpUrl(DIRECTION_BASE_URL + params).toUriString();
        String roadViewUrl = ROAD_VIEW_BASE_URL + dto.targetLatitude() + "," + dto.targetLongitude();
 
-       String shortPlaceUrl = shortUrlService.shortenUrl(placeUrl);
+       String shortPlaceUrl = shortUrlService.shortenUrl(result);
        String shortRoadViewUrl = shortUrlService.shortenUrl(roadViewUrl);
 
         return OutputDto.builder()
