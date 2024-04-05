@@ -39,7 +39,6 @@ public class DirectionController {
     }
 
     @GetMapping("/{shortKey}")
-    @LogExecutionTime
     public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String shortKey) {
         String originalUrl = shortUrlService.getOriginalUrl(shortKey);
         if (originalUrl != null) {
