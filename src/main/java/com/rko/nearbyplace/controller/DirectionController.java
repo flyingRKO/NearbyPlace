@@ -1,5 +1,6 @@
 package com.rko.nearbyplace.controller;
 
+import com.rko.nearbyplace.aop.LogExecutionTime;
 import com.rko.nearbyplace.dto.InputDto;
 import com.rko.nearbyplace.service.DirectionService;
 import com.rko.nearbyplace.service.ShortUrlService;
@@ -38,6 +39,7 @@ public class DirectionController {
     }
 
     @GetMapping("/{shortKey}")
+    @LogExecutionTime
     public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String shortKey) {
         String originalUrl = shortUrlService.getOriginalUrl(shortKey);
         if (originalUrl != null) {
