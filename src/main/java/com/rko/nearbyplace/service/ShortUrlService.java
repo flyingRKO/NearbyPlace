@@ -14,7 +14,7 @@ public class ShortUrlService {
         .expireAfterWrite(24, TimeUnit.HOURS)
         .build();
 
-    private final String BASE_URL = "http://NearByPlace.ap-northeast-2.elasticbeanstalk.com/";
+    private final String BASE_URL = "3.34.213.227";
 
     public String shortenUrl(String originalUrl) {
         String shortKey = generateRandomKey(8);  // 8자리 랜덤 키 생성
