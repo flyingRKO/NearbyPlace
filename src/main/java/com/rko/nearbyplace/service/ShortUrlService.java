@@ -2,7 +2,6 @@ package com.rko.nearbyplace.service;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,8 +13,8 @@ public class ShortUrlService {
         .maximumSize(10000)
         .expireAfterWrite(24, TimeUnit.HOURS)
         .build();
-    @Value("${BASE_URL}")
-    private String BASE_URL;
+
+    private final String BASE_URL = "http://NearByPlace.ap-northeast-2.elasticbeanstalk.com/";
 
     public String shortenUrl(String originalUrl) {
         String shortKey = generateRandomKey(8);  // 8자리 랜덤 키 생성
